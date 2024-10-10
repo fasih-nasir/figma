@@ -1,16 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useLocation } from 'react-router-dom'
+// ROUTER
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+// ROUTER
+
+// AUTH 
+import Login from './auth/login'
+import Create from './auth/create'
+// AUTH 
+// PAGES
+import Home from './pages/home'
+// PAGES
+
 import './App.css'
 import Navbar from './components/navbar'
-import Page from './pages/page'
 function App() {
 
-
+  const location = useLocation();
   return (
    <>
-   <Navbar />
-   <Page/>
+
+ {!location.pathname.startsWith("/auth") && <Navbar/>}
+
+
+<Routes>
+<Route path='/' element={<Home/>} ></Route> 
+<Route path='/auth/login' element={<Login/>} ></Route> 
+<Route path='/auth/create' element={<Create/>} ></Route>  
+
+  </Routes> 
+
    </>
   )
 }
