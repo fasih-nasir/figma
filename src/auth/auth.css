@@ -1,0 +1,45 @@
+:root{
+    --color1:#49BBBD99;
+    --color2:#49BBBD;
+}
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: "Poppins", sans-serif !important;
+}
+.containerdiv{
+
+
+    height: 100vh !important;
+}
+.i1{
+
+    border-radius: 30px;
+    object-fit: cover !important;
+    background-size: cover !important;
+    height: 550px !important;
+}
+@media (max-width:992px) {
+    .divnone{
+        display: none;
+    }
+}
+.bgdiv{
+    transition: 10.6s ease-in-out !important;
+
+    background-color: var(--color1);
+    padding: 8px;
+    border-radius: 30px;
+}
+button{
+    transition: 10.6s ease-in-out !important;
+
+    color: white !important;
+}
+.login{
+    transition: 10.6s ease-in-out !important;
+    border-radius: 30px !important;
+
+    color: white !important;
+    background-color: var(--color1) !important;
+}
