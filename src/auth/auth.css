@@ -1,6 +1,7 @@
 :root{
     --color1:#49BBBD99;
     --color2:#49BBBD;
+    --color3:#5B5B5B;
 }
 body{
     margin: 0px;
@@ -25,21 +26,41 @@ body{
     }
 }
 .bgdiv{
-    transition: 10.6s ease-in-out !important;
+    transition: 0.6s ease-in-out !important;
 
     background-color: var(--color1);
     padding: 8px;
     border-radius: 30px;
 }
 button{
-    transition: 10.6s ease-in-out !important;
+    transition: 0.6s ease-in-out !important;
 
     color: white !important;
 }
 .login{
-    transition: 10.6s ease-in-out !important;
+    transition: 0.6s ease-in-out !important;
     border-radius: 30px !important;
 
     color: white !important;
     background-color: var(--color1) !important;
+}
+
+input{
+    border-radius: 50px !important;
+    border: 1px solid var(--color1) !important;
+font-size: 13px !important;
+padding: 12px !important;
+color: var(--color3) !important;
+}
+.span1{
+    font-weight: 400 !important;
+font-size: 16px !important;
+color: var(--color3);
+}
+.btnreg{
+    padding:10px 15px;
+    border: none;
+    border-radius: 40px;
+ font-size: 14px;
+    background-color: var(--color1);
 }

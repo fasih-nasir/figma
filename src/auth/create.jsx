@@ -2,6 +2,7 @@ import React from 'react'
 import img1 from "../auth/picture/Group 232.png"
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { message } from 'antd';
 import "./auth.css"
 // FIREBASE
 import { query, where, onSnapshot,doc, auth,getDownloadURL,ref,onAuthStateChanged,storage,uploadBytesResumable ,signInWithEmailAndPassword,updateDoc,addDoc,collection,db,createUserWithEmailAndPassword,app } from './config';
@@ -17,63 +18,41 @@ export default function Create() {
   // CREATE
   
 // SIGNUP
-async function handleSignUp(e) {
+function handleSignUp(e) {
   e.preventDefault();
 
-  // Img Upload Start
-  const storageRef = ref(storage, `images/${img.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, img);
+  // Create user account with Firebase
+  createUserWithEmailAndPassword(auth, createEmail, createPass)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
 
-  // Start listening for upload state changes
-  uploadTask.on(
-    'state_changed', 
-    (snapshot) => {
-      // Track progress of the image upload
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      // Create a new document in the 'users' collection
+      const docRef = await addDoc(collection(db, "users"), {
+        name: createName,
+        email: createEmail,
+      });
 
-    }, 
-    (error) => {
-      // Handle upload errors
-      console.error('Error during upload:', error.message);
-    },
-    async () => {
-      // This block runs after the image is uploaded
-      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-    
+      // Update document with the generated ID
+      await updateDoc(docRef, { id: docRef.id });
 
-      // Create user account
-      createUserWithEmailAndPassword(auth, createEmail, createPass)
-        .then(async (userCredential) => {
-          const user = userCredential.user;
+      // Show success message in the bottom right
+      message.success('Account created successfully', 8); // 3 seconds duration
 
-          // Firebase - Create a new document in 'accounts' collection
-          const docRef = await addDoc(collection(db, "accounts"), {
-            name: createName,
-            email: createEmail,
-            location:locPass,
-            profileimg: downloadURL,  // Save the image URL in Firestore
-          });
-
-          // Update document with the generated ID
-          await updateDoc(docRef, { id: docRef.id });
-
-          setCreateName("");   
-          setCreateEmail(""); 
-          setCreatePass("");   
-          setimg(null);       
-          enqueueSnackbar(`${createName} Your account has been successfully created!`, { variant: 'success' });
-        })
-        
-        .catch((error) => {
-          // Handle any error in creating the user
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error('Error during user creation:', errorCode, errorMessage);
-          enqueueSnackbar(`Error: ${error.message}`, { variant: 'error' });
-        });
-    }
-  );
-  // Img Upload End
+      // Clear the input values after account creation
+      setCreateName("");   
+      setCreateEmail(""); 
+      setCreatePass("");   
+          
+    })
+    .catch((error) => {
+      // Handle any errors in creating the user
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Error during user creation:', errorCode, errorMessage);
+      
+      // Optionally show an error message
+      message.error('Error creating account: ' + errorMessage, 8);
+    });
 }
 // SIGNUP 
   // CREATE
@@ -83,38 +62,57 @@ async function handleSignUp(e) {
       <div className="col-lg-8 divnone d-flex flex-row  align-items-center">
         <img src={img1} className='img-fluid col-9 i1' alt="" />
       </div>
-      <div className="col-lg-4 col-12 d-flex justify-content-center align-items-center flex-column">
+      <div className="col-lg-4 col-12 d-flex justify-content-center   flex-column">
           
           {/* Top Welcome Message */}
           <span className="mb-4  text-center">Welcome to Lorem..!</span>
       {/* Buttons Section */}
-      <div className="col-9 mb-3 d-flex justify-content-around bgdiv">
+      <div className='d-flex justify-content-center align-items-center'>
+      <div className="col-9 mb-3 d-flex justify-content-center bgdiv">
            <Link to={"/auth/login"}>
             <button className="btn   col-6 me-2">Login</button>
             </Link>
+            
             <button className="btn login col-6">Register</button>
           </div>
-          <div className="text-center mt-3">
-            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+          </div>
+          <div className="text-start my-3">
+            <span className='span1'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
           </div>
 
           {/* Username and Password Input Fields */}
-          <div className="col-12 mb-3">
+          <div className="col-11 mb-3">
             <input
               type="text"
               className="form-control"
               placeholder="Enter your Username"
+              value={createName} 
+              onChange={(e) => setCreateName(e.target.value)}
             />
           </div>
-          <div className="col-12 mb-3">
+          <div className="col-11 mb-3">
+            <input
+              type="email"
+              className="form-control"
+              value={createEmail} 
+              onChange={(e) => setCreateEmail(e.target.value)}
+
+              placeholder="Enter your Email"
+            />
+          </div>
+          <div className="col-11 mb-3">
             <input
               type="password"
               className="form-control"
               placeholder="Enter your Password"
+              value={createPass} 
+              onChange={(e) => setCreatePass(e.target.value)}
             />
           </div>
 
-    
+    <div className='d-flex justify-content-end col-11 '>
+     <button onClick={handleSignUp} className='btnreg col-7'>Register</button>
+    </div>
 
           {/* Additional Text */}
         
