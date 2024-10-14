@@ -73,7 +73,7 @@ function handleSignUp(e) {
             <button className="btn   col-6 me-2">Login</button>
             </Link>
             
-            <button className="btn login col-6">Register</button>
+            <button className="btn login1 col-6">Register</button>
           </div>
           </div>
           <div className="text-start my-3">

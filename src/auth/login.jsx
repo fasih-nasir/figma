@@ -48,7 +48,7 @@ export default function Login() {
           {/* Buttons Section */}
           <div className='d-flex justify-content-center align-items-center'>
             <div className="col-9 mb-3 d-flex justify-content-center bgdiv">
-              <button className="btn login col-6 me-2">Login</button>
+              <button className="btn login1 col-6 me-2" id='login'>Login</button>
               <Link to={"/auth/create"}>
                 <button className="btn resg col-6">Register</button>
               </Link>

@@ -7,7 +7,9 @@ import Group451 from "../pages/images/Group451.png"
 import download from "../pages/images/download.png"
 export default function Navbar() {
   return (
-    <div className='container-fluid px-5 bg-img'>
+    <>
+    {/* <div className='navtop mx-auto'> */}
+    <div className='container-fluid  position-absolute p-2 px-lg-5 '>
     {/* // NAVBAR */}
     <nav className="navbar navbar-expand-lg py-1">
         <div className="container-fluid">
@@ -102,25 +104,18 @@ export default function Navbar() {
         </div>
       </div>
     {/* // NAVBAR */}
-    {/* HEAER */}
-    <div className='container-fluid  contheader px-2 d-flex flex-column flex-lg-row justify-content-center align-items-center'>
-      <div className="col-lg-6 col-12 headdiv1">
-        <h1 className='display-6 fw-medium'><span className='org'>Studying</span> Online is now much easier</h1>
-<p>TOTC is an interesting platform that will teach you in more an interactive way</p>
-     <div>
-     <Button type="default" className="login bntm col-3 p-3">Join for free</Button>
-
-     </div>
-      </div>
-      <div className="col-lg-6 idiv col-12 d-flex justify-content-center align-items-center ">
-<img src={Group451} className='img-fluid' alt="" />
-<img src={download} className='i1 img-fluid position-absolute h-100 mt-3 ' alt="" />
-
-
-      </div>
     </div>
-    {/* HEAER */}
+    {/* </div> */}
+    
 
-    </div>
+    {/* sucess */}
+
+    {/* sucess */}
+
+  
+
+
+
+    </>
   )
 }
